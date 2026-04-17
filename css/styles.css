@@ -278,8 +278,9 @@ footer {
 }
 
 .acerca-contenedor {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
     gap: 20px;
     flex: 1;
 }
