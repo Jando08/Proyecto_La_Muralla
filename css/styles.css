@@ -266,10 +266,22 @@ footer {
 }
 
 /*Acerca de nosotros*/
-.acerca-contenedor {
+#acercanosotros {
+    background: white;
+}
+
+.acerca-flex {
     display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.acerca-contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    flex: 1;
 }
 
 /* Texto */
