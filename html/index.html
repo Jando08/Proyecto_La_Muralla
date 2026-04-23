@@ -44,52 +44,55 @@
                 <div class="card">
                     <h3>Venta de videojuegos</h3>
                     <p>Vendemos videojuegos digitales de todo tipo, clasificaciones y precio. !Compra ahora!</p>
-                    <img src="../imagenes/fornite.jpg" width="200px" height="200px">
+                    <img src="../imagenes/fornite.jpg" class="img-servicio" width="200px" height="200px">
                 </div>
 
                 <div class="card">
                     <h3>Reparacines a tus equipos</h3>
                     <p>Reparamos computadoras, laptops, consolas y todo tipo de equipos.</p>
-                    <img src="../imagenes/reparaciones.jpg" width="200px" height="200px">
+                    <img src="../imagenes/reparaciones.jpg" class="img-servicio" width="200px" height="200px">
                 </div>
 
                 <div class="card">
                     <h3>Soporte Tecnico</h3>
                     <p>Solucion de problemas en equipos de software y hardware.</p>
-                    <img src="../imagenes/soporte_tecnico.jpg" width="200px" height="200px">
+                    <img src="../imagenes/soporte_tecnico.jpg" class="img-servicio" width="200px" height="200px">
                 </div>
             </div>  
          </section>
 
         <section id="acercanosotros">
+           
             <h2>Acerca de Nosotros</h2>
-
             <div class="acerca-flex">
                 <div class="acerca-texto">
                     <p>Somos una empresa dedicada a la venta de videojuegos y accesorios.</p>
                     <p>Vendemos videojuegos digitales de todo tipo, edad y precio. !Compra ahoraa!</p>
                 </div>
                 <div class="acerca-contenedor">
-                    <div class="tech">
+                    <div class="tech" data-info="HTML es el lenguaje base para estructurar paginas web">
                         <img src="../imagenes/htmls.png">
                         <h3>HTML</h3>
                     </div>
 
-                    <div class="tech">
+                    <div class="tech" data-info="PHP es un lenguaje de programacion del lado del servidor">
                         <img src="../imagenes/php.png">
                         <h3>PHP</h3>
                     </div>
 
-                    <div class="tech">
+                    <div class="tech" data-info="CSS es un lenguaje de estilos para paginas web">
                         <img src="../imagenes/css.jpg">
                         <h3>CSS</h3>
                     </div>
 
-                    <div class="tech">
+                    <div class="tech" data-info="JS es un lenguaje de programacion del lado del cliente">
                         <img src="../imagenes/js.png">
                         <h3>JS</h3>
                     </div>
                 </div>
+            </div>
+            <div id="info-tech" class="info-tech">
+                
             </div>
         </section>
          
@@ -101,20 +104,20 @@
             <p><strong>Correo:</strong> lamurallaoficial@contacto.com</p>
             <h3>Envíanos un mensaje</h3>
 
-            <form>
+            <form id="form" class="form">
                 <fieldset>
                         <legend>Informacion Personal</legend>
                     <div class="fila">
                         <label>Nombre:
-                            <input type="Text" required placeholder="Mecu Lean">
+                            <input type="Text" placeholder="Mecu Lean">
                         </label>
                         <br>
                         <label>Correo:
-                            <input type="Text" required placeholder="correo@gmail.com">
+                            <input type="Text" placeholder="correo@gmail.com">
                         </label>
                         <br>
                         <label>Teléfono:
-                            <input type="Text" required placeholder="###-###-####">
+                            <input type="Text" placeholder="###-###-####">
                         </label>
                         <br>
                     </div>
@@ -129,5 +132,53 @@
     <hr>
   
     <footer> 2026 STEAM - Todos los derechos reservados</footer>
+    <style>
+        .img-servicio {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .img-servicio.zoomed {
+            transform: scale(1.4);
+        }
+    </style>
+    <script>
+     document.addEventListener("DOMContentLoaded", () => {
+        // ---- Acerca de Nosotros: mostrar data-info al hacer clic ----
+        const techs = document.querySelectorAll(".tech");
+        const infoTech = document.getElementById("info-tech");
+
+        techs.forEach(tech => {
+            tech.addEventListener("click", () => {
+                const info = tech.getAttribute("data-info");
+                infoTech.textContent = info;
+                infoTech.style.display = "block";
+            });
+        });
+
+        // ---- Servicios: zoom en imagen al hacer clic ----
+        const imgServicios = document.querySelectorAll(".img-servicio");
+
+        imgServicios.forEach(img => {
+            img.addEventListener("click", () => {
+                img.classList.toggle("zoomed");
+            });
+        });
+    });
+
+    //validadcio del formulario
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const nombre = document.querySelector('input[name="nombre"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const telefono = document.querySelector('input[name="telefono"]').value;
+        const mensaje = document.querySelector('textarea[name="mensaje"]').value;
+        if (nombre === '' || email === '' || telefono === '' || mensaje === '') {
+            alert('Todos los campos son obligatorios');
+            e.preventDefault();
+        }
+    });
+
+    
+    </script>
 </body>
 </html>
