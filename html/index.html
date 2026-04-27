@@ -24,6 +24,19 @@
     <main>
         <!--Inicio-->
         <section id="Inicio" class="hero">
+            <!--Creacion del slider de imagenes-->
+            <div class="slider-contenedor">
+                <!--Imagenes que se utilizaran para el slider-->
+                <img src = "../imagenes/videojuegos_1.jpg" class="slide slide-active">
+                <img src = "../imagenes/python.jpg" class="slide">
+                <img src = "../imagenes/yo.jpg" class="slide">
+
+                <!--botones para el slider-->
+                <button id="prev">&#10094;</button>
+                <button id="next">&#10095;</button>
+
+
+            </div>
             <div class="overlay">
                 <div class="hero-texto">
                     <h2>Bienvenido</h2>
@@ -143,6 +156,43 @@
     </style>
     <script>
      document.addEventListener("DOMContentLoaded", () => {
+        // ---- Slider (Carrusel) ----
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => {
+                slide.classList.remove('slide-active');
+            });
+            
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            
+            slides[currentSlide].classList.add('slide-active');
+        }
+
+        if(prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                showSlide(currentSlide - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                showSlide(currentSlide + 1);
+            });
+
+            // Auto-play (cambia la imagen cada 5 segundos)
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+        }
+
         // ---- Acerca de Nosotros: mostrar data-info al hacer clic ----
         const techs = document.querySelectorAll(".tech");
         const infoTech = document.getElementById("info-tech");

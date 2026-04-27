@@ -13,26 +13,72 @@ body {
 
 /*Header*/
 header {
-    background: #222;
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: white;
-    padding: 20px;
-    text-align:center;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+header h1 {
+    font-size: 26px;
+    margin-bottom: 0;
+    background: linear-gradient(135deg, #00bcd4, #8e2de2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 /*Menu*/
-nav {
-    margin-top:10px;
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    position: relative;
 }
 
 nav a {
-    color: white;
-    text-decoration:none;
-    margin: 0 15px;
-    font-weight:bold;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 5px 0;
+    transition: color 0.3s ease;
 }
 
-nav a:hover {
-    color: #00bcd4;
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #00bcd4, #8e2de2);
+    bottom: -4px;
+    left: 0;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+nav a:hover, nav a.active {
+    color: #ffffff;
+}
+
+nav a:hover::after, nav a.active::after {
+    width: 100%;
 }
 
 /*Secciones*/
@@ -180,32 +226,93 @@ footer {
 
 /*Inicio*/
 .hero {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/*slider*/
+.slider-contenedor {
     position: relative;
-    height: 300px;
-    background: url("img/gaming.jpg") center/cover no-repeat;
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+}
+
+
+/*imagenes del carrusel*/
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    object-fit: cover;
+    opacity: 0;
+    transition: 1s ease;
+}
+
+.slide-active {
+    opacity: 1;
+}
+/*botones del slider*/
+.slider-contenedor button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+    z-index: 10;
+    transition: background 0.3s;
+}
+
+.slider-contenedor button:hover {
+    background: rgba(0, 188, 212, 0.8);
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+/*Overlay de texto sobre el slider*/
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    border-radius: 10px;
-    margin: 20px auto;
-    max-width: 1000px;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255,255,255,0.88); 
+    background: rgba(255, 255, 255, 0.8);
+    pointer-events: none; /* Para que los clicks pasen al slider si es necesario */
 }
 
 /*Texto*/
 .hero-texto {
     position: relative;
-    z-index: 1;
+    z-index: 11;
     color: #333;
+    pointer-events: auto; /* Reactivar clicks en botones del texto */
+    text-align: center;
+    padding: 20px;
 }
 
 .hero-texto h2 {
@@ -252,9 +359,10 @@ footer {
 /*Instalaciones*/
 .galeria {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px; 
     margin-top: 15px;
+
 }
 
 .galeria img {
@@ -333,4 +441,101 @@ footer {
     transform: translateY(-8px) scale(1.05);
     background: #00bcd4;
     color: white;
+}/* --- RESPONSIVIDAD --- */
+@media screen and (max-width: 768px) {
+    /* Header */
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    header h1 {
+        font-size: 22px;
+        white-space: normal;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    /* Hero */
+    .hero {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .hero-texto h2 {
+        font-size: 24px;
+    }
+
+    /* Servicios */
+    .servicios-contenedor {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    /* Acerca de Nosotros */
+    .acerca-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .acerca-contenedor {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        gap: 15px;
+    }
+
+    /* Instalaciones */
+    .galeria {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    /* Formulario */
+    .fila {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    nav li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        padding: 10px 0;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 5px;
+    }
+    
+    nav a::after {
+        display: none;
+    }
+
+    .acerca-contenedor {
+        grid-template-columns: 1fr;
+    }
 }
